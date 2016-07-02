@@ -1,0 +1,17 @@
+My program needs to control a mouse. The first step is to change the mouse device number.
+
+cat /proc/bus/input/devices | grep Handlers="mouse0"
+% H: Handlers=mouse0 event4 
+And then change the mouse event number in src/run_tld.cpp line 323
+% fd_mouse = open("/dev/input/event4", O_RDWR);
+
+cd OpenTLD
+mkdir build
+cd build
+cmake ../src/
+make
+cd ../bin/
+%To run from camera, because mouse control is part of system call, it needs to run as administrator.
+sudo ./run_tld -p ../parameters.yml -tl
+%Use mouse to select the region you want to check, has fun.
+
